@@ -1,12 +1,29 @@
-import pygame
+import menu
 import gui
 
+scene = "menu"
+
 def main():
-	bookAntiqua_font = gui.Font("resources/fonts/BKANT.TTF", 24)
+	global scene
+
+	def change_scene_to_level_selector():
+		global scene
+
+		scene = "level-selector"
+
 	window = gui.Window(640, 480, "Zero Pointer", None)
-	test_text = gui.Text(window, window.get_width() / 2 - bookAntiqua_font.get_size(), window.get_height() / 2 - bookAntiqua_font.get_size(), bookAntiqua_font.get_font(), "TEST", False, pygame.Color("yellow"))
+
+	bookAntiqua_font = gui.Font("resources/fonts/BKANT.TTF", 32)
+
+	menu.init(window, bookAntiqua_font, change_scene_to_level_selector)
+
 	while True:
-		test_text.draw()
+		if scene == "menu":
+			menu.draw_background(window)
+			menu.draw_name()
+			menu.draw_play()
+			menu.update_play()
 		window.update()
+
 if __name__ == "__main__":
 	main()

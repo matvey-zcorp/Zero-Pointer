@@ -39,7 +39,6 @@ class Window:
 	def set_icon(self, icon):
 		self.icon = icon
 		pygame.display.set_icon(self.icon)
-
 	def update(self):
 		pygame.display.flip()
 		self.window.fill(pygame.Color("black"))
@@ -61,7 +60,7 @@ class Image:
 	def get_image(self):
 		return self.image
 	def set_size(self, width, height):
-		self.image = pygame.transform.scale(pygame.image.load(path).convert_alpha(), (width, height))
+		self.image = pygame.transform.scale(self.image.convert_alpha(), (width, height))
 
 class Sound:
 	def __init__(self, path, loop=False):
@@ -84,9 +83,9 @@ class Button:
 		self.image_rect = self.image.get_rect(topleft=(x, y))
 	def draw(self):
 		if not self.image_rect.collidepoint(pygame.mouse.get_pos()):
-			self.window.draw(obj=self.image, rect=self.image_rect)
+			self.window.draw(obj=self.image, rect=self.image_rect, x=None, y=None)
 		else:
-			self.window.draw(obj=self.highlight_image, rect=self.image_rect)
+			self.window.draw(obj=self.highlight_image, rect=self.image_rect, x=None, y=None)
 	def update(self):
 		if self.image_rect.collidepoint(pygame.mouse.get_pos()) and pygame.mouse.get_pressed()[0]:
 			self.command()
@@ -130,3 +129,6 @@ class Text:
 		self.text_text = text
 	def draw(self):
 		self.window.draw(obj=self.text, x=self.x, y=self.y, rect=None)
+
+def get_color(color):
+	return pygame.Color(color)
